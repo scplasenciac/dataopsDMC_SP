@@ -7,11 +7,23 @@ pipeline {
       }
     }
     stage('Build Docker Image') {
+      agent {
+        docker {
+          image 'docker:latest'
+          args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+      }
       steps {
         sh 'docker build -t comisiones-app .'
       }
     }
     stage('Run Script') {
+      agent {
+        docker {
+          image 'docker:latest'
+          args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+      }
       steps {
         sh 'docker run --rm -v $PWD:/app comisiones-app python script_comisiones.py'
       }
