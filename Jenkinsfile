@@ -1,4 +1,25 @@
-docker run -d --name jenkins \
-  -p 8080:8080 -p 50000:50000 \
-  -v jenkins_home:/var/jenkins_home \
-  jenkins/jenkins:lts
+pipeline {
+  agent any
+  stages {
+    stage('Checkout') {
+      steps {
+        git branch: 'main', url: 'https://github.com/scplasenciac/dataopsDMC_SP.git'
+      }
+    }
+    stage('Build Docker Image') {
+      steps {
+        sh 'docker build -t comisiones-app .'
+      }
+    }
+    stage('Run Script') {
+      steps {
+        sh 'docker run --rm -v $PWD:/app comisiones-app python script_comisiones.py'
+      }
+    }
+    stage('Archive Results') {
+      steps {
+        archiveArtifacts artifacts: 'resultado_comisiones.xlsx', fingerprint: true
+      }
+    }
+  }
+}
