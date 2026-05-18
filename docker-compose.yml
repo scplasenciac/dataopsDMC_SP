@@ -1,0 +1,13 @@
+services:
+  jenkins:
+    image: jenkins-docker
+    container_name: jenkins_compose
+    user: root
+    restart: always
+    ports:
+      - "9090:8080"
+      - "50001:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+volumes:
+  jenkins_home:
