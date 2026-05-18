@@ -16,12 +16,12 @@ pipeline {
     }
     stage('Run Script') {
       steps {
-         sh 'docker run --rm -v $PWD:/output comisiones-app'
+         sh 'docker run --rm -v $PWD/output:/output comisiones-app'
       }
     }
     stage('Archive Results') {
       steps {
-        archiveArtifacts artifacts: 'resultado_comisiones.xlsx', fingerprint: true
+        archiveArtifacts artifacts: 'output/resultado_comisiones.xlsx', fingerprint: true
       }
     }
     stage('List Workspace') {
