@@ -16,6 +16,7 @@ services:
 
   docker:
     image: docker:dind
+    container_name: docker
     privileged: true
     ports:
       - "2375:2375"
