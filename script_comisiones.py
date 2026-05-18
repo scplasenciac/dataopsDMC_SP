@@ -23,6 +23,6 @@ empleados = pd.read_sql(
 # Merge con comisiones
 resultado = df.merge(empleados, on="empleado_id", how="left")
 
-resultado.to_excel("/workspace/resultado_comisiones.xlsx", index=False)
-os.chmod("/workspace/resultado_comisiones.xlsx", 0o644)
+resultado.to_excel("/workspace/output/resultado_comisiones.xlsx", index=False)
+os.chmod("/workspace/output/resultado_comisiones.xlsx", 0o644)
 
