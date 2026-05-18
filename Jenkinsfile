@@ -19,9 +19,15 @@ pipeline {
     sh 'mkdir -p output'
   }
 }
+stage('Test Host Write') {
+  steps {
+    sh 'echo "test" > output/test.txt'
+    sh 'ls -l output'
+  }
+}
     stage('Run Script') {
       steps {
-         sh 'docker run --rm -v $PWD/output:/output comisiones-app'
+         sh 'docker run --rm -v $PWD:/workspace comisiones-app'
       }
     }
     stage('List Host Output') {
@@ -32,7 +38,7 @@ pipeline {
 }
     stage('Debug Container Output') {
   steps {
-    sh 'docker run --rm -v $PWD/output:/output comisiones-app ls -l /output'
+    sh 'docker run --rm -v $PWD:/workspace comisiones-app ls -l /workspace'
   }
 }
     stage('Archive Results') {
