@@ -9,5 +9,19 @@ services:
       - "50001:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
+    environment:
+      - DOCKER_HOST=tcp://docker:2375
+    depends_on:
+      - docker
+
+  docker:
+    image: docker:dind
+    privileged: true
+    ports:
+      - "2375:2375"
+    volumes:
+      - docker_data:/var/lib/docker
+
 volumes:
   jenkins_home:
+  docker_data:
