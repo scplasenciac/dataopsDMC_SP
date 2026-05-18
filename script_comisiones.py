@@ -27,3 +27,4 @@ output_path = "/app/output/resultado_comisiones.xlsx"
 resultado.to_excel(output_path, index=False)
 os.chmod(output_path, 0o644)
 
+
