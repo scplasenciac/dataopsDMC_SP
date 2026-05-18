@@ -14,11 +14,21 @@ pipeline {
         sh 'docker build -t comisiones-app -f Dockerfile.app .'
       }
     }
+    stage('Prepare Output') {
+  steps {
+    sh 'mkdir -p output'
+  }
+}
     stage('Run Script') {
       steps {
          sh 'docker run --rm -v $PWD/output:/output comisiones-app'
       }
     }
+    stage('Debug Container Output') {
+  steps {
+    sh 'docker run --rm -v $PWD/output:/output comisiones-app ls -l /output'
+  }
+}
     stage('Archive Results') {
       steps {
         archiveArtifacts artifacts: 'output/resultado_comisiones.xlsx', fingerprint: true
