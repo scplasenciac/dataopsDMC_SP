@@ -11,12 +11,12 @@ pipeline {
     }
     stage('Build Docker Image') {
       steps {
-        sh 'docker build -t comisiones-app -f Dockerfile.jenkins .'
+        sh 'docker build -t comisiones-app -f Dockerfile.app .'
       }
     }
     stage('Run Script') {
       steps {
-        sh 'docker run --rm -v $PWD:/app comisiones-app python script_comisiones.py'
+         sh 'docker run --rm -v $PWD:/app comisiones-app'
       }
     }
     stage('Archive Results') {
