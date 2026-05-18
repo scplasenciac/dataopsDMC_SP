@@ -30,12 +30,6 @@ stage('Fix Permissions') {
     sh 'chmod -R 777 output'
   }
 }
-stage('Prepare Output') {
-  steps {
-    sh 'mkdir -p output && chmod -R 777 output'
-  }
-}
-
 stage('Run Script') {
   steps {
     sh 'docker run --rm -v $PWD/output:/app/output comisiones-app'
