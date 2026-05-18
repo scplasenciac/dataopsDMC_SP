@@ -14,7 +14,6 @@
           sh 'docker build -t comisiones-app -f Dockerfile.app .'
         }
       }
-      groovy
 stage('Docker Info') {
   steps {
     sh 'docker info'
