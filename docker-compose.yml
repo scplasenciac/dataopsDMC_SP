@@ -18,6 +18,7 @@ services:
     image: docker:dind
     container_name: docker
     privileged: true
+    command: ["--host=tcp://0.0.0.0:2375", "--host=unix:///var/run/docker.sock"]
     ports:
       - "2375:2375"
     volumes:
