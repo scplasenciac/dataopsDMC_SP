@@ -16,7 +16,7 @@ pipeline {
     }
     stage('Run Script') {
       steps {
-         sh 'docker run --rm -v $PWD:/app comisiones-app'
+         sh 'docker run --rm -v $PWD:/output comisiones-app'
       }
     }
     stage('Archive Results') {

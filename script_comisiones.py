@@ -24,7 +24,7 @@ empleados = pd.read_sql(
 resultado = df.merge(empleados, on="empleado_id", how="left")
 
 # Crear carpeta de salida si no existe
-os.makedirs("/app", exist_ok=True)
+os.makedirs("/output", exist_ok=True)
 
 # Exportar Excel en el volumen montado
-resultado.to_excel("/app/resultado_comisiones.xlsx", index=False)
+resultado.to_excel("/output/resultado_comisiones.xlsx", index=False)
