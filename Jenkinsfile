@@ -27,7 +27,7 @@ stage('Test Host Write') {
 }
     stage('Run Script') {
       steps {
-         sh 'docker run --rm -v $PWD/output:/workspace/output comisiones-app'
+         sh 'docker run --rm -u $(id -u):$(id -g) -v $PWD:/workspace comisiones-app'
       }
     }
     stage('List Host Output') {
@@ -43,7 +43,7 @@ stage('Test Host Write') {
 }
     stage('Archive Results') {
       steps {
-        archiveArtifacts artifacts: 'output/resultado_comisiones.xlsx', fingerprint: true
+        archiveArtifacts artifacts: 'resultado_comisiones.xlsx', fingerprint: true
       }
     }
     stage('List Workspace') {
