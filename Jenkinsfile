@@ -11,7 +11,7 @@ pipeline {
     }
     stage('Build Docker Image') {
       steps {
-        sh 'docker build -t comisiones-app .'
+        sh 'docker build -t comisiones-app -f Dockerfile.jenkins .'
       }
     }
     stage('Run Script') {
