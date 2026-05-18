@@ -24,6 +24,12 @@ pipeline {
          sh 'docker run --rm -v $PWD/output:/output comisiones-app'
       }
     }
+    stage('List Host Output') {
+  steps {
+    sh 'ls -l output'
+    sh 'pwd'
+  }
+}
     stage('Debug Container Output') {
   steps {
     sh 'docker run --rm -v $PWD/output:/output comisiones-app ls -l /output'
@@ -31,7 +37,7 @@ pipeline {
 }
     stage('Archive Results') {
       steps {
-        archiveArtifacts artifacts: 'output/resultado_comisiones.xlsx', fingerprint: true
+        archiveArtifacts artifacts: 'resultado_comisiones.xlsx', fingerprint: true
       }
     }
     stage('List Workspace') {
