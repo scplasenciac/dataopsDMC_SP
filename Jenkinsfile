@@ -37,17 +37,20 @@ pipeline {
 
     stage('Run Script and Copy') {
       steps {
-        // Ejecuta el contenedor y deja el archivo dentro
+        // Borra contenedor previo si existe
+        sh 'docker rm -f comisiones_tmp || true'
+
+        // Ejecuta el contenedor
         sh 'docker run --name comisiones_tmp comisiones-app'
 
-        // Lista dentro del contenedor para confirmar
+        // Lista dentro del contenedor para debug
         sh 'docker cp comisiones_tmp:/app/output/resultado_comisiones.xlsx output/ || true'
         sh 'docker run --rm comisiones-app ls -l /app/output || true'
 
-        // Copia el archivo desde el contenedor al host Jenkins
+        // Copia el archivo al host
         sh 'docker cp comisiones_tmp:/app/output/resultado_comisiones.xlsx output/'
 
-        // Borra el contenedor temporal
+        // Borra el contenedor
         sh 'docker rm comisiones_tmp'
       }
     }
