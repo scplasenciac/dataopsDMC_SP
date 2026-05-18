@@ -25,9 +25,14 @@ stage('Test Host Write') {
     sh 'ls -l output'
   }
 }
+stage('Fix Permissions') {
+  steps {
+    sh 'chmod -R 777 output'
+  }
+}
     stage('Run Script') {
       steps {
-         sh 'docker run --rm -u $(id -u jenkins):$(id -g jenkins) -v $PWD:/workspace comisiones-app'
+         sh 'docker run --rm -u $(id -u):$(id -g) -v $PWD:/workspace comisiones-app'
       }
     }
     stage('List Host Output') {
