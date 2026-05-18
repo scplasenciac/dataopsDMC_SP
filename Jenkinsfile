@@ -30,11 +30,17 @@ stage('Fix Permissions') {
     sh 'chmod -R 777 output'
   }
 }
-    stage('Run Script') {
-      steps {
-         sh 'docker run --rm -u $(id -u):$(id -g) -v $PWD:/workspace comisiones-app'
-      }
-    }
+stage('Prepare Output') {
+  steps {
+    sh 'mkdir -p output && chmod -R 777 output'
+  }
+}
+
+stage('Run Script') {
+  steps {
+    sh 'docker run --rm -v $PWD/output:/app/output comisiones-app'
+  }
+}
     stage('List Host Output') {
   steps {
     sh 'ls -l output'
@@ -46,11 +52,11 @@ stage('Fix Permissions') {
     sh 'docker run --rm -v $PWD/output:/workspace/output comisiones-app ls -l /workspace/output'
   }
 }
-    stage('Archive Results') {
-      steps {
-        archiveArtifacts artifacts: 'resultado_comisiones.xlsx', fingerprint: true
-      }
-    }
+stage('Archive Results') {
+  steps {
+    archiveArtifacts artifacts: 'output/resultado_comisiones.xlsx', fingerprint: true
+  }
+}
     stage('List Workspace') {
       steps {
         sh 'ls -l'
