@@ -20,4 +20,5 @@ empleados = pd.read_sql("SELECT empleado_id, nom_empleado, ape_empleado, cod_car
 resultado = df.merge(empleados, on="empleado_id", how="left")
 
 # Exportar Excel
-resultado.to_excel("/app/output/resultado_comisiones.xlsx", index=False)
+resultado.to_excel("/output/resultado_comisiones.xlsx", index=False)
+
