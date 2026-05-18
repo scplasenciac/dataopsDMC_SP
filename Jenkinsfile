@@ -21,8 +21,13 @@ pipeline {
     }
     stage('Archive Results') {
       steps {
-        archiveArtifacts artifacts: 'resultado_comisiones.xlsx', fingerprint: true
+        archiveArtifacts artifacts: '**/resultado_comisiones.xlsx', fingerprint: true
       }
     }
+    stage('List Workspace') {
+      steps {
+        sh 'ls -l'
+  }
+}
   }
 }
